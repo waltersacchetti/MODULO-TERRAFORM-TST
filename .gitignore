@@ -2,7 +2,7 @@
 terraform.tfstate.d/
 .terraform.lock.hcl
 errored.tfstate
-data/
-user_data/vpn-sso.xml
+# data/
+# user_data/vpn-sso.xml
 .DS_Store
 private/
