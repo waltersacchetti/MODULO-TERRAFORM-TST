@@ -1,0 +1,22 @@
+╔══════════════════════╗
+║Cloudfront Information║
+╚══════════════════════╝
+${join("\n", [
+for key, value in resource_map: (
+  join("\n\t", [
+    "(${key})${value.id}",
+    "╠ Description: ${value.comment}",
+    resource_origin[key],
+    "╚ Cloudfront Custom Cache Policies"
+  ])
+)
+])}
+${join("", [
+for key, value in resource_cache_policy: (
+  join("\n", [
+    "\t\t╠ Id: ${value.id}",
+    "\t\t╠ Name: ${value.name}",
+    "\t\t╚ Description: ${value.comment}\n"
+  ])
+)
+])}

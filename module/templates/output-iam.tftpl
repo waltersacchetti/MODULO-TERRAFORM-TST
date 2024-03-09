@@ -1,0 +1,21 @@
+╔═════════════════════╗
+║IAM Information      ║
+╚═════════════════════╝
+(Roles):
+${join("\n", [
+for key, value in resource_map_iam_role: (
+  join("\n\t", [
+    resource_iam_role[key]
+  ])
+)
+])}
+
+(Policies):
+${join("\n", [
+for key, value in resource_map_iam_policy: (
+  join("\n\t", [
+    resource_iam_policy[key]
+  ])
+)
+])}
+

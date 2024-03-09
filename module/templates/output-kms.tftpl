@@ -1,0 +1,12 @@
+╔═══════════════╗
+║KMS Information║
+╚═══════════════╝
+${join("\n", [
+for key, value in resource_map: (
+  join("\n\t", [
+    "(${key})${value.key_id}",
+    resource_kms_aliases[key]
+  ])
+)
+])}
+
