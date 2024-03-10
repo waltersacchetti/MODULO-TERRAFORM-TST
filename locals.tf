@@ -63,29 +63,29 @@ locals {
               }
             ]      
           }
-          vpn-users = {
-            vpc               = "snet"
-            egress_restricted = false
-          }
-          vpn-cicd = {
-            vpc               = "snet"
-            egress_restricted = false
-          }
+          # vpn-users = {
+          #   vpc               = "snet"
+          #   egress_restricted = false
+          # }
+          # vpn-cicd = {
+          #   vpc               = "snet"
+          #   egress_restricted = false
+          # }
         }
-        vpn = {
-          users = {
-            vpc       = "snet"
-            sg        = "vpn-users"
-            type      = "federated"
-            saml_file = file("${path.root}/private/vpn-sso.xml")
-            subnets   = ["private-app-a"] # OJO CON ESTO
-          }
-          cicd = {
-            vpc     = "snet"
-            sg      = "vpn-cicd"
-            subnets = ["private-app-b"] # OJO CON ESTO
-          }
-        }
+        # vpn = {
+        #   users = {
+        #     vpc       = "snet"
+        #     sg        = "vpn-users"
+        #     type      = "federated"
+        #     saml_file = file("${path.root}/private/vpn-sso.xml")
+        #     subnets   = ["private-app-a"] # OJO CON ESTO
+        #   }
+        #   cicd = {
+        #     vpc     = "snet"
+        #     sg      = "vpn-cicd"
+        #     subnets = ["private-app-b"] # OJO CON ESTO
+        #   }
+        # }
 
 
         # ec2 = {
