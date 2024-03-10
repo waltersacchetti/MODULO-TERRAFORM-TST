@@ -1,4 +1,4 @@
 provider "aws" {
-  region  = "eu-west-1"
-  profile = "waltersacchetti"
+  region  = local.pre.aws.region
+  profile = local.pre.aws.profile
 }
