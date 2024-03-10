@@ -5,4 +5,4 @@ errored.tfstate
 data/
 user_data/vpn-sso.xml
 .DS_Store
-private/
+# private/
