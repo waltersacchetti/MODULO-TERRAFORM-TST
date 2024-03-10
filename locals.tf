@@ -1,7 +1,7 @@
 locals {
   pre = {
     aws = {
-      profile = "waltersacchetti"
+      profile = "default"
       region  = "eu-west-1"
       project = "transportes"
       owner   = "devops"
