@@ -1,4 +1,7 @@
 name : Deploy Terraform yo AWS
+permissions:
+  id-token: write # This is required for requesting the JWT
+  contents: read  # This is required for actions/checkout
 
 on:
     push:
@@ -23,14 +26,16 @@ jobs:
               uses: hashicorp/setup-terraform@v3
               with:
                   terraform_version: 1.7.4
+              
+                        
 
-            - name: Configure AWS Credentials
-              uses: aws-actions/configure-aws-credentials@v4
-              with:
-                  audience: sts.amazonaws.com.cn
-                  aws-region: eu-west-1
-                  role-to-assume: arn:aws:iam::426448793571:role/GithubActionRol
-                  role-session-name: MySessionName
+            # - name: Configure AWS Credentials
+            #   uses: aws-actions/configure-aws-credentials@v4
+            #   with:
+            #       audience: sts.amazonaws.com
+            #       aws-region: eu-west-1
+            #       role-to-assume: arn:aws:iam::426448793571:role/GithubActionRol
+            #       role-session-name: MySessionName
                       
             - name: Terraform Init
               run: terraform init
