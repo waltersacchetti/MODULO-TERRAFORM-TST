@@ -3,11 +3,11 @@ permissions:
   id-token: write # This is required for requesting the JWT
   contents: read  # This is required for actions/checkout
 
-env:
-  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-  AWS_PROFILE: ${{ secrets.AWS_PROFILE }}
-  AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}  
+# env:
+#   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+#   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+#   AWS_PROFILE: ${{ secrets.AWS_PROFILE }}
+#   AWS_DEFAULT_REGION: ${{ secrets.AWS_REGION }}  
 
 on:
     push:
@@ -36,8 +36,8 @@ jobs:
                   audience: sts.amazonaws.com
                   aws-region: eu-west-1
                   role-to-assume: arn:aws:iam::426448793571:role/GithubActionRol
-                  aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-                  aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+                  # aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+                  # aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
 
                       
             - name: Terraform Init
