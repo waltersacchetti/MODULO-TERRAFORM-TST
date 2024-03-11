@@ -24,20 +24,13 @@ jobs:
               with:
                   terraform_version: 1.7.4
 
-            # - name: Configure AWS Credentials
-            #   uses: aws-actions/configure-aws-credentials@v1
-            #   with:
-            #     # aws-profile: ${{ secrets.AWS_PROFILE }}
-            #     aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-            #     aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-            #     aws-region: ${{ secrets.AWS_REGION }}
-            
-            - name: Add profile credentials to ~/.aws/credentials
-              run: |
-                aws sso login --profile ${{ secrets.AWS_PROFILE }}   
-              
-
-
+            - name: Configure AWS Credentials
+              uses: aws-actions/configure-aws-credentials@v4
+              with:
+                  aws-region: eu-west-1
+                  role-to-assume: arn:aws:iam::426448793571:role/GithubActionRol
+                  role-session-name: MySessionName
+                      
             - name: Terraform Init
               run: terraform init
 
