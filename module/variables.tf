@@ -210,6 +210,54 @@ variable "aws" {
           sg     = string
         })), [])
       })), {})
+      eks = optional(map(object({
+        tags            = optional(map(string), {})
+        cluster_version = optional(string, "1.26")
+
+        vpc     = string
+        subnets = list(string)
+        sg      = string
+        public  = optional(bool, true)
+        cicd    = optional(bool, true)
+
+        aws_auth_roles = optional(list(object({
+          arn      = string
+          username = string
+          groups   = optional(list(string), [])
+        })), [])
+
+        iam_role_additional_policies = optional(map(string), null)
+
+        eks_managed_node_groups = optional(map(object({
+          ami_type                              = optional(string, "AL2_x86_64")
+          desired_size                          = optional(number, 1)
+          max_size                              = optional(number, 2)
+          min_size                              = optional(number, 1)
+          instance_type                         = optional(string, "t3.medium")
+          kubelet_extra_args                    = optional(string, "")
+          subnets                               = optional(list(string), [])
+          block_device_mappings                 = optional(any, null)
+          default_block_device_mappings_cmk_key = optional(string, null)
+          labels                                = optional(map(string), {})
+          taints = optional(list(object({
+            key    = string
+            value  = string
+            effect = string
+          })), [])
+          tags = optional(map(string), {})
+        })), {})
+        role_binding = optional(list(object({
+          username    = string
+          clusterrole = string
+          namespaces  = list(string)
+        })), [])
+        cluster_role_binding = optional(list(object({
+          username    = string
+          clusterrole = string
+        })), [])
+        namespaces     = optional(list(string), [])
+        cluster_addons = optional(map(map(string)), null)
+      })), {})
       iam = optional(object({
         iam_policy = optional(map(object({
           policy_file = optional(string, null)

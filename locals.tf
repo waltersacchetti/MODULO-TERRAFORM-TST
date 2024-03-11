@@ -63,6 +63,14 @@ locals {
               }
             ]      
           }
+           eks-main = {
+            vpc = "snet"
+            ingress = [{
+              ports                  = [{ from = 443 }, { from = 80 }]
+              protocol               = "tcp"
+              # source_security_groups = ["vpn-users", "vpn-cicd", "ec2-main"]
+            }]
+          }
           # vpn-users = {
           #   vpc               = "snet"
           #   egress_restricted = false
@@ -157,7 +165,77 @@ locals {
         #     ]
         #   }
         # }
+        eks = {
+          main = {
+            vpc             = "snet"
+            cluster_version = "1.28"
+            subnets         = ["private-eks-a", "private-eks-b", "private-eks-c"]
+            public          = true
+            sg              = "eks-main"
+            eks_managed_node_groups = {
+              ng-01 = {
+                subnets      = ["private-eks-a"]
+                desired_size = 2
+                max_size     = 2
+                tags = {
+                  map-migrated = "mig4Y9WUHC8WM"
+                }
+              }
+            }
+            create_aws_auth_configmap = true
+            namespaces                = ["precticmem-pre", "cots"]
+            aws_auth_roles = [
+              {
+                arn      = "arn:aws:iam::426448793571:role//AdministratorAccess"
+                username = "sso-administrators"
+              },
+              {
+                arn      = "arn:aws:iam::426448793571:role/AWSReservedSSO_AWSPowerUserAccess_c21f89d2e76031d1"
+                username = "sso-powerusers"
+              }
+            ]
+            cluster_role_binding = [
+              {
+                username    = "sso-administrators"
+                clusterrole = "cluster-admin"
+              },
+              {
+                username    = "sso-powerusers"
+                clusterrole = "view"
+              }
+            ]
+            role_binding = [
+              {
+                username    = "sso-powerusers"
+                clusterrole = "cluster-admin"
+                namespaces  = ["precticmem-pre", "cots"]
+              }
+            ]
+            # cluster_addons = {
+            #   aws-ebs-csi-driver = {}
+            #   coredns            = {}
+            #   kube-proxy         = {}
+            #   vpc-cni            = {
+            #     before_compute = true
+            #   }
+            # }
+          }
+        }
 
+        eks_default_block_device_mappings = {
+          xvda = {
+            device_name = "/dev/xvda"
+            ebs = {
+              volume_size = 20
+              volume_type = "gp2"
+              iops        = 300
+              encrypted   = true
+              #kms_key_id = "arn:aws:kms:eu-west-1:426448793571:key/756ddbea-b186-459c-af8f-95226e1e1c64"
+              delete_on_termination = true
+            }
+          }
+        }
+        
 
 
 
