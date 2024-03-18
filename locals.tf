@@ -1,9 +1,9 @@
 locals {
   pre = {
     aws = {
-      profile = "waltersacchetti"
+      profile = "s-security-identity"
       region  = "eu-west-1"
-      project = "transportes"
+      project = "PKI-ROOT-CA"
       owner   = "devops"
       resources = {
         vpc = {
@@ -23,15 +23,15 @@ locals {
               "private-app-a" : "10.11.24.64/27"
               "private-app-b" : "10.11.25.64/27"
               "private-app-c" : "10.11.26.64/27"
-              "private-eks-a" : "10.97.0.0/18"
-              "private-eks-b" : "10.97.64.0/18"
-              "private-eks-c" : "10.97.128.0/18"
+              # "private-eks-a" : "10.97.0.0/18"
+              # "private-eks-b" : "10.97.64.0/18"
+              # "private-eks-c" : "10.97.128.0/18"
             }
-            database_subnets = {
-              "private-rds-a" : "10.11.24.32/27"
-              "private-rds-b" : "10.11.25.32/27"
-              "private-rds-c" : "10.11.26.32/27"
-            }
+            # database_subnets = {
+            #   "private-rds-a" : "10.11.24.32/27"
+            #   "private-rds-b" : "10.11.25.32/27"
+            #   "private-rds-c" : "10.11.26.32/27"
+            # }
            } 
           }
         sg = {
